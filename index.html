@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>张浩楠 · 个人作品集</title>
+<style>
+  :root{
+    --bg:#faf7f1; --paper:#fffdf8; --paper2:#f4efe6;
+    --ink:#28231c; --ink2:#5d564a; --ink3:#948b7c;
+    --line:#e6ddcd; --line2:#d8cbb6;
+    --accent:#b4451f; --accent-soft:#f6e7dd;
+    --blue:#31547d; --blue-soft:#e7edf4;
+    --gold:#a8862f;
+    --serif:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--accent);color:#fff}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+  @media(max-width:640px){.wrap{padding:0 20px}}
+
+  /* ---------- nav ---------- */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,247,241,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:1080px;margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;justify-content:space-between}
+  .nav-logo{font-family:var(--serif);font-weight:700;font-size:16px;letter-spacing:2px}
+  .nav-logo span{color:var(--accent)}
+  .nav-links{display:flex;gap:28px;font-size:13px;color:var(--ink2)}
+  .nav-links a{transition:color .2s}
+  .nav-links a:hover{color:var(--accent)}
+  @media(max-width:720px){.nav-links{display:none}}
+
+  /* ---------- hero ---------- */
+  header{padding:150px 0 70px;position:relative}
+  header::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(560px 300px at 88% 4%,rgba(180,69,31,.06),transparent 60%),
+    radial-gradient(420px 260px at 4% 16%,rgba(49,84,125,.05),transparent 60%);pointer-events:none}
+  .hero{display:grid;grid-template-columns:1.35fr .8fr;gap:64px;align-items:center}
+  @media(max-width:880px){.hero{grid-template-columns:1fr;gap:44px}}
+  .hero-kicker{font-size:12.5px;letter-spacing:4px;color:var(--accent);margin-bottom:20px}
+  h1{font-family:var(--serif);font-weight:700;font-size:clamp(34px,4.6vw,50px);line-height:1.3;letter-spacing:1px}
+  h1 em{font-style:normal;color:var(--accent)}
+  .hero-sub{margin-top:22px;color:var(--ink2);font-size:15.5px;max-width:560px}
+  .hero-sub b{color:var(--ink);font-weight:600}
+  .hero-stats{display:flex;flex-wrap:wrap;gap:0;margin-top:40px;border-top:1px solid var(--line2);padding-top:22px}
+  .hstat{padding-right:34px;margin-right:34px;border-right:1px solid var(--line)}
+  .hstat:last-child{border-right:0;margin-right:0;padding-right:0}
+  .hstat .n{font-family:var(--serif);font-size:30px;font-weight:700;line-height:1.15;color:var(--ink)}
+  .hstat .n i{font-style:normal;font-size:15px;color:var(--ink3);margin-left:2px}
+  .hstat .l{font-size:12px;color:var(--ink3);margin-top:2px}
+  @media(max-width:640px){.hstat{padding-right:18px;margin-right:18px}}
+  .hero-cta{margin-top:34px;display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 26px;border-radius:999px;font-size:13.5px;letter-spacing:1px;transition:transform .2s,box-shadow .2s;cursor:pointer;border:1px solid var(--ink);background:transparent;color:var(--ink);font-family:var(--sans)}
+  .btn-dark{background:var(--ink);color:#fbf8f2}
+  .btn-dark:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(40,35,28,.18)}
+  .btn-line:hover{background:#fff;transform:translateY(-2px)}
+
+  /* 头像画框 */
+  .avatar-col{display:flex;flex-direction:column;align-items:center}
+  .avatar-frame{
+    width:250px;height:330px;border-radius:160px 160px 12px 12px;
+    background:var(--paper2);border:1px solid var(--line2);
+    display:flex;align-items:center;justify-content:center;overflow:hidden;
+    position:relative;cursor:pointer;
+    box-shadow:0 24px 48px -22px rgba(40,35,28,.28);
+    transition:transform .25s,box-shadow .25s;
+  }
+  .avatar-frame:hover{transform:translateY(-4px);box-shadow:0 30px 56px -22px rgba(40,35,28,.34)}
+  .avatar-frame img{width:100%;height:100%;object-fit:cover}
+  .avatar-empty{text-align:center;color:var(--ink3);font-size:12.5px;padding:0 26px;line-height:2}
+  .avatar-empty .plus{font-size:30px;display:block;margin-bottom:6px;color:var(--accent);font-weight:300}
+  .avatar-btn{margin-top:16px;font-size:12px;letter-spacing:2px;color:var(--ink2);border:1px solid var(--line2);border-radius:999px;padding:7px 20px;background:var(--paper);cursor:pointer;transition:all .2s}
+  .avatar-btn:hover{color:var(--accent);border-color:var(--accent)}
+  .avatar-cap{margin-top:12px;font-size:11.5px;color:var(--ink3);letter-spacing:1px}
+  .avatar-change{margin-top:6px;font-size:11px;color:var(--ink3);cursor:pointer;text-decoration:underline dotted}
+  .avatar-change:hover{color:var(--accent)}
+
+  /* ---------- section 通用 ---------- */
+  section{padding:88px 0;position:relative}
+  section + section{border-top:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;gap:22px;margin-bottom:16px}
+  .sec-num{font-family:var(--serif);font-size:15px;color:var(--accent);letter-spacing:2px}
+  .sec-title{font-family:var(--serif);font-weight:700;font-size:clamp(26px,3.4vw,36px);letter-spacing:1px}
+  .sec-desc{color:var(--ink2);max-width:680px;font-size:14.5px;margin-bottom:46px}
+  .vertical-tag{position:absolute;right:38px;top:96px;font-family:var(--serif);font-size:12px;letter-spacing:6px;writing-mode:vertical-rl;color:var(--ink3);opacity:.55;user-select:none}
+  @media(max-width:880px){.vertical-tag{display:none}}
+
+  /* ---------- 教育 ---------- */
+  .edu-row{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:820px){.edu-row{grid-template-columns:1fr}}
+  .edu-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:30px 32px;position:relative;overflow:hidden}
+  .edu-card::after{content:"";position:absolute;top:0;left:0;width:44px;height:3px;background:var(--accent)}
+  .edu-logo{position:absolute;top:22px;right:24px;height:30px;opacity:.92;max-width:150px;object-fit:contain}
+  .edu-card .school{font-family:var(--serif);font-size:18px;font-weight:700;padding-right:130px}
+  .edu-card .major{color:var(--ink2);font-size:13px;margin-top:3px}
+  .edu-card .time{font-size:12px;color:var(--ink3);margin-top:8px;letter-spacing:1px}
+  .edu-note{margin-top:16px;padding:14px 16px;background:var(--accent-soft);border-radius:10px;font-size:13px;line-height:1.8;color:var(--ink2)}
+  .edu-note b{color:var(--accent);font-weight:600}
+  .edu-note.blue{background:var(--blue-soft)}
+  .edu-note.blue b{color:var(--blue)}
+  .course-title{margin-top:20px;font-size:12px;letter-spacing:2px;color:var(--ink3)}
+  .course-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .course-chips span{font-size:12px;color:var(--ink2);background:var(--paper2);border:1px solid var(--line);border-radius:999px;padding:4px 13px}
+  .course-chips span i{font-style:normal;color:var(--accent);font-weight:600;margin-left:5px}
+  .transcript{margin-top:22px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+  .transcript img{width:100%}
+  .transcript .cap{font-size:11.5px;color:var(--ink3);padding:10px 16px;border-top:1px solid var(--line);background:var(--paper2)}
+
+  /* ---------- 实习经历与项目（按公司分块） ---------- */
+  .org{margin-bottom:34px}
+  .org:last-child{margin-bottom:0}
+  .org-head{display:flex;align-items:center;gap:18px;background:var(--paper);border:1px solid var(--line);border-radius:16px 16px 0 0;border-bottom:none;padding:22px 30px}
+  .org-head img.org-logo{height:30px;width:auto;max-width:170px;object-fit:contain}
+  .org-head .org-badge{width:44px;height:44px;border-radius:12px;object-fit:cover;border:1px solid var(--line)}
+  .org-head .org-txt{flex:1}
+  .org-head .org-name{font-family:var(--serif);font-size:19px;font-weight:700;line-height:1.35}
+  .org-head .org-name small{font-size:13px;color:var(--ink2);font-weight:400;font-family:var(--sans);margin-left:8px}
+  .org-head .org-role{font-size:12px;color:var(--accent);letter-spacing:1px;margin-top:2px}
+  .org-head .org-time{font-size:12px;color:var(--ink3);letter-spacing:1px;white-space:nowrap}
+  .org-body{background:var(--paper);border:1px solid var(--line);border-radius:0 0 16px 16px;border-top:1px dashed var(--line2);padding:26px 30px 34px}
+  .org-points{display:grid;gap:9px;padding-bottom:22px;border-bottom:1px dashed var(--line2);margin-bottom:26px}
+  .org-pt{display:flex;gap:12px;font-size:14px;color:var(--ink2)}
+  .org-pt .b{flex-shrink:0;width:72px;color:var(--ink);font-weight:600}
+  .org-pt b{font-weight:600;color:var(--ink)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .chip{font-size:12px;color:var(--ink2);background:var(--paper2);border:1px solid var(--line);border-radius:999px;padding:3px 13px}
+
+  /* 项目子卡 */
+  .subproj{margin-top:26px;padding-top:24px;border-top:1px solid var(--line)}
+  .subproj:first-of-type{border-top:none;margin-top:0;padding-top:0}
+  .subproj-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:6px}
+  .subproj-idx{font-family:var(--serif);font-size:12.5px;color:var(--accent);letter-spacing:2px}
+  .subproj h4{font-family:var(--serif);font-size:19px;font-weight:700}
+  .subproj-sub{color:var(--ink2);font-size:13.5px;margin-bottom:18px}
+  .proj-metrics{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:22px}
+  .metric{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:12px 18px}
+  .metric .mn{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--accent)}
+  .metric .ml{font-size:11.5px;color:var(--ink3)}
+
+  /* 图片/视频墙 */
+  .gal{display:grid;gap:14px;margin-bottom:16px}
+  .gal-2{grid-template-columns:1fr 1fr}
+  .gal-3{grid-template-columns:repeat(3,1fr)}
+  .gal-4{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:820px){.gal-2,.gal-3,.gal-4{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.gal-2,.gal-3,.gal-4{grid-template-columns:1fr}}
+  .shot{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--paper2)}
+  .shot video{width:100%;display:block;background:#1a1712;aspect-ratio:16/9}
+  .shot .ratio-916 video,.ratio-916 video{aspect-ratio:9/16}
+  .vplay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;cursor:pointer;background:rgba(26,23,18,.16);transition:background .2s;z-index:2}
+  .vplay:hover{background:rgba(26,23,18,.3)}
+  .vplay .ico{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.93);color:#1a1712;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.22);padding-left:3px;font-family:var(--sans)}
+  .vplay.busy .ico{font-size:11px;padding-left:0;letter-spacing:1px}
+  .vplay.dead{background:rgba(26,23,18,.5)}
+  .vplay.dead .ico{font-size:11px;padding-left:0;color:#b4451f}
+  .shot img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+  .shot:hover img{transform:scale(1.035)}
+  .shot .cap{position:absolute;left:0;right:0;bottom:0;padding:30px 14px 10px;font-size:12px;color:#fff;background:linear-gradient(transparent,rgba(20,16,12,.78))}
+  .shot.ratio-43{aspect-ratio:4/3}
+  .shot.ratio-916{aspect-ratio:9/16}
+  .shot.ratio-169{aspect-ratio:16/9}
+  .shot video{width:100%;height:100%;object-fit:cover;display:block;background:#111}
+  .shot.ratio-916 video{position:absolute;inset:0}
+  .shot .vfallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(20,16,12,.6);backdrop-filter:blur(2px)}
+  .shot .vfallback a{font-size:12px;color:#fff;border:1px solid rgba(255,255,255,.5);border-radius:999px;padding:6px 16px;background:rgba(0,0,0,.35)}
+  .shot .vfallback span{font-size:11px;color:#f7c59f}
+  .doc-link{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);background:var(--paper2);border:1px solid var(--line);border-radius:999px;padding:8px 18px;transition:all .2s}
+  .docs-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .doc-link:hover{color:var(--accent);border-color:var(--accent);background:#fff}
+  .frame-demo{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:20px;background:var(--paper2)}
+  .frame-demo .bar{display:flex;align-items:center;gap:6px;padding:10px 16px;border-bottom:1px solid var(--line)}
+  .frame-demo .bar i{width:9px;height:9px;border-radius:50%;display:block}
+  .frame-demo .bar span{font-size:12px;color:var(--ink3);margin-left:8px}
+  .frame-demo iframe{width:100%;height:600px;border:0;display:block;background:#fff}
+
+  /* ---------- 文档墙 ---------- */
+  .docs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:900px){.docs-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.docs-grid{grid-template-columns:1fr}}
+  .doc-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:6px;transition:all .25s}
+  .doc-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 14px 30px -18px rgba(40,35,28,.25)}
+  .doc-card .dt{font-size:11px;letter-spacing:2px;color:var(--accent)}
+  .doc-card .dt.n{color:var(--blue)} .doc-card .dt.h{color:var(--gold)}
+  .doc-card .dn{font-size:13.5px;font-weight:500;line-height:1.6;flex:1}
+  .doc-card .dd{font-size:11.5px;color:var(--ink3)}
+
+  /* ---------- 技能 ---------- */
+  .skill-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:820px){.skill-row{grid-template-columns:1fr}}
+  .skill-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:24px 26px}
+  .skill-card h4{font-family:var(--serif);font-size:15px;color:var(--accent);margin-bottom:8px;letter-spacing:1px}
+  .skill-card p{font-size:13px;color:var(--ink2)}
+
+  /* ---------- 联系 ---------- */
+  .contact{text-align:center;padding:100px 0}
+  .contact h2{font-family:var(--serif);font-size:clamp(26px,4vw,40px);font-weight:700;margin-bottom:14px;letter-spacing:2px}
+  .contact p{color:var(--ink2);margin-bottom:36px}
+  .contact-links{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+  footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;font-size:12px;color:var(--ink3);letter-spacing:1px}
+
+  .rv{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+  .rv.on{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#top">张浩楠<span> · </span>作品集</a>
+    <div class="nav-links">
+      <a href="#edu">教育</a><a href="#exp">实习与项目</a><a href="#docs">文档</a><a href="#skills">技能</a><a href="#contact">联系</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header id="top">
+  <div class="wrap hero">
+    <div>
+      <div class="hero-kicker">PORTFOLIO · 2026</div>
+      <h1>张浩楠<br>把一线 AI 内容生产经验，<br>沉淀成<em>可复用的产品结构</em></h1>
+      <p class="hero-sub">
+        北师大戏剧影视硕士在读，<b>4 段 AI 内容赛道实习</b>——游戏营销、AI MV、AI 短剧、虚拟陪伴。
+        从 0 到 1 搭过 AIGC 生产管线，定义过结构化规范与留存指标体系，也把需求从卡点推到过上线。
+        本页所有成果均附<b>原始文档、工作流截图与成片</b>，可直接核验。
+      </p>
+      <div class="hero-stats rv">
+        <div class="hstat"><div class="n">4<i>段</i></div><div class="l">AI 内容赛道实习</div></div>
+        <div class="hstat"><div class="n">12<i>集</i></div><div class="l">AI 短剧成片定稿</div></div>
+        <div class="hstat"><div class="n">99<i>+</i></div><div class="l">AI MV 项目经手</div></div>
+        <div class="hstat"><div class="n">8<i>+</i></div><div class="l">栏目矩阵与工作流</div></div>
+      </div>
+      <div class="hero-cta rv">
+        <a class="btn btn-dark" href="#exp">看实习与项目</a>
+        <a class="btn btn-line" href="#contact">联系方式</a>
+      </div>
+    </div>
+    <div class="avatar-col rv">
+      <div class="avatar-frame" id="avatarFrame" title="点击上传本人照片">
+        <div class="avatar-empty" id="avatarEmpty">
+          <span class="plus">＋</span>
+          点击上传本人照片<br>照片将保存在本机浏览器
+        </div>
+      </div>
+      <button class="avatar-btn" id="avatarBtn">上传 / 更换照片</button>
+      <span class="avatar-change" id="avatarReset" style="display:none">移除照片</span>
+      <div class="avatar-cap">PHOTO · 张浩楠</div>
+      <input type="file" id="avatarInput" accept="image/*" style="display:none">
+    </div>
+  </div>
+</header>
+
+<!-- ================= 01 教育 ================= -->
+<section id="edu">
+  <span class="vertical-tag">教 育 背 景</span>
+  <div class="wrap">
+    <div class="sec-head rv"><span class="sec-num">01</span><span class="sec-title">教育与研究</span></div>
+    <p class="sec-desc rv">影视科班出身——镜头语言与叙事是我的底色，也是我做 AI 内容产品时和纯技术背景同学不一样的地方。</p>
+    <div class="edu-row rv">
+      <div class="edu-card">
+        <img class="edu-logo" src="assets/img/logo-bnu.png" alt="北京师范大学">
+        <div class="school">北京师范大学 · 艺术与传媒学院</div>
+        <div class="major">戏剧与影视 · 广播电视与新媒体方向 ｜ 硕士 MFA</div>
+        <div class="time">2025.09 – 2028.06 ｜ 导师：张智华教授 ｜ 研究生学业二等奖学金</div>
+        <div class="edu-note"><b>学位论文</b>｜《AIGC 驱动下微短剧创作机制重构与人机协同范式研究》——自提概念「拟像亲缘性」，提出人机协同三模式（辅助 / 主导 / 深度协同）。</div>
+        <div class="edu-note blue"><b>毕业创作</b>｜竖屏微短剧《朱砂》12 集 × 5 分钟——福州脱胎漆艺（国家级非遗）× 悬疑：让「髹漆—打磨」的工艺节奏与「层层揭开真相」的叙事同构。</div>
+        <div class="course-title">主修课程（附官方成绩单成绩）</div>
+        <div class="course-chips">
+          <span>电视艺术创意与实践<i>96</i></span><span>传媒艺术创新研究<i>92</i></span><span>短剧创意与写作<i>89</i></span><span>视听节目形态与策划<i>89</i></span><span>AI 艺术创作<i>86</i></span><span>媒介研究方法及应用<i>88</i></span><span>视听语言与剪辑<i>85</i></span><span>影视视觉实践<i>88</i></span>
+        </div>
+        <div class="transcript">
+          <img src="assets/img/bnu-transcript.png" alt="北京师范大学研究生成绩单" loading="lazy">
+          <div class="cap">北京师范大学研究生成绩单（教务处制，2026.10）——课程与成绩可逐项核验</div>
+        </div>
+      </div>
+      <div class="edu-card">
+        <img class="edu-logo" src="assets/img/logo-cuz.png" alt="浙江传媒学院" style="height:24px">
+        <div class="school">浙江传媒学院</div>
+        <div class="major">广播电视编导 ｜ 本科</div>
+        <div class="time">2021.09 – 2025.06</div>
+        <div class="edu-note"><b>语言</b>｜CET-6</div>
+        <div class="edu-note blue"><b>方向交叉</b>｜编导训练（叙事 / 分镜 / 剪辑）+ 硕士阶段 AIGC 研究 + 四段实习的一线生产经验，构成「懂内容 × 懂工具 × 懂产品」的复合背景。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02 实习经历与项目 ================= -->
+<section id="exp">
+  <span class="vertical-tag">实 习 与 项 目</span>
+  <div class="wrap">
+    <div class="sec-head rv"><span class="sec-num">02</span><span class="sec-title">实习经历 × 项目证据 · 按公司完整呈现</span></div>
+    <p class="sec-desc rv">每一段实习独立成块：上半部分是这段实习做了什么，下半部分是可核验的项目证据——成片、工作流截图、文档原件。</p>
+
+    <!-- ============ 腾讯 ============ -->
+    <div class="org rv">
+      <div class="org-head">
+        <img class="org-logo" src="assets/img/logo-tencent.svg" alt="腾讯" style="height:34px">
+        <div class="org-txt">
+          <div class="org-name">腾讯 · 光子工作室群 · 发行部<small>MAX 短剧项目</small></div>
+          <div class="org-role">AIGC 内容产品（实习）</div>
+        </div>
+        <span class="org-time">2026.07 – 至今</span>
+      </div>
+      <div class="org-body">
+        <div class="org-points">
+          <div class="org-pt"><span class="b">策略决策</span><span>主导「乱斗月老」账号 0→1 起号，基于数据主动推翻恋爱相亲向定位、转型游戏锐评向；发明「五档榜单」内容形式，成为唯一被抖音 / 小红书 / B 站三平台同时验证的内容资产。</span></div>
+          <div class="org-pt"><span class="b">管线产品化</span><span>从 0 到 1 搭建 AI 短剧「资产生成 → 剧本拆分 → 分镜 → 提示词 → 视频生成」全链路并固化进可视化 AI 工作流平台；以关键帧参考图作一致性锚点解决角色漂移。</span></div>
+          <div class="org-pt"><span class="b">模型选型</span><span>按内容形态而非模型强弱选型：漫剧走「文生图定视觉 + 图生视频」，数字人走同期声模型；界定「什么值得生成」，口播仅生成锚点镜头，单条生成用量压至 25 秒。</span></div>
+          <div class="org-pt"><span class="b">数据产品</span><span>从每周复盘的真实卡点出发，按「使用频次 × 单次耗时」排优先级，定义跨平台可比口径与「高播放低涨粉」异常标记，推动工程侧搭建多平台看板。</span></div>
+        </div>
+        <div class="chips"><span class="chip">12 集成片定稿</span><span class="chip">141 条镜头抽卡</span><span class="chip">单集素材 2–3 日备齐</span><span class="chip">单条爆款 12,679 播放</span><span class="chip">锐评条分享占全周 63%</span></div>
+
+        <!-- 子项目 A：MAX -->
+        <div class="subproj">
+          <div class="subproj-head"><span class="subproj-idx">PROJECT 01</span><h4>MAX 游戏 IP 短剧 · AIGC 生产管线 0 → 1</h4></div>
+          <p class="subproj-sub">为游戏 IP 打造短剧，全流程 AI 驱动：资产 → 剧本 → 分镜 → 提示词 → 生成 → 成片，固化进可视化 AI 工作流平台，支撑 12 集连续更新。</p>
+          <div class="proj-metrics">
+            <div class="metric"><div class="mn">12 集</div><div class="ml">成片定稿可发布</div></div>
+            <div class="metric"><div class="mn">141 条</div><div class="ml">第 6–9 集镜头抽卡</div></div>
+            <div class="metric"><div class="mn">2–3 日</div><div class="ml">单集镜头素材备齐</div></div>
+            <div class="metric"><div class="mn">25 秒</div><div class="ml">口播单条生成用量</div></div>
+          </div>
+          <div class="gal gal-2">
+            <div class="shot ratio-43"><img src="assets/img/max-card-workflow.png" alt="MAX 视频抽卡工作流" loading="lazy"><div class="cap">「MAX-视频抽卡工作流」：场景 / 主角 / 配角资产分区 + 分镜头脚本表 + Seedance 生成节点</div></div>
+            <div class="shot ratio-43"><img src="assets/img/max-workflow-canvas.png" alt="AI 全链路工作流画布" loading="lazy"><div class="cap">AI 工作流画布全景：从剧本拆分到成片的完整节点网络</div></div>
+          </div>
+          <div class="gal gal-3">
+            <div class="shot ratio-169"><video class="pv" controls preload="none" playsinline poster="assets/img/poster-max-ep01.jpg" data-src="assets/video/max-ep01-clip.mp4"></video><div class="cap">第 1 集 · 成片片段</div></div>
+            <div class="shot ratio-169"><video class="pv" controls preload="none" playsinline poster="assets/img/poster-max-ep10.jpg" data-src="assets/video/max-ep10-clip.mp4"></video><div class="cap">第 10 集 · 成片片段</div></div>
+            <div class="shot ratio-169"><video class="pv" controls preload="none" playsinline poster="assets/img/poster-max-ep12.jpg" data-src="assets/video/max-ep12-clip.mp4"></video><div class="cap">第 12 集 · 成片片段</div></div>
+          </div>
+          <div class="docs-row">
+            <a class="doc-link" href="assets/docs/腾讯-MAX短剧-提示词方法论v1.docx" download>⤓ Seedance 提示词方法论 v1.0</a>
+            <a class="doc-link" href="assets/docs/腾讯-MAX短剧-AI漫剧制作工作流.docx" download>⤓ AI 漫剧制作工作流</a>
+            <a class="doc-link" href="assets/img/report-shot-2.png" target="_blank">模型选型三层方案（报告截图）↗</a>
+            <a class="doc-link" href="assets/img/report-shot-3.png" target="_blank">产线七环节模型卡点（报告截图）↗</a>
+            <a class="doc-link" href="assets/docs/腾讯-MAX短剧-分镜人设提示词.docx" download>⤓ 分镜人设提示词</a>
+            <a class="doc-link" href="assets/docs/腾讯-MAX短剧-分镜头剧本.docx" download>⤓ 分镜头剧本</a>
+          </div>
+        </div>
+
+        <!-- 子项目 B：乱斗月老 -->
+        <div class="subproj">
+          <div class="subproj-head"><span class="subproj-idx">PROJECT 02</span><h4>「乱斗月老」账号 0 → 1 · 内容策略与增长验证</h4></div>
+          <p class="subproj-sub">三平台（抖音 / 小红书 / B 站）游戏内容账号。用数据推翻初始定位、重构人设、发明可复用的内容形式，并为全部栏目搭建 AI 生产工作流。以下均为已发布成片。</p>
+          <div class="proj-metrics">
+            <div class="metric"><div class="mn">12,679</div><div class="ml">单条爆款三平台合计播放</div></div>
+            <div class="metric"><div class="mn">63%</div><div class="ml">锐评条分享占全周比例</div></div>
+            <div class="metric"><div class="mn">8+</div><div class="ml">栏目矩阵与对应工作流</div></div>
+            <div class="metric"><div class="mn">即时</div><div class="ml">数据汇总（原半天）</div></div>
+          </div>
+          <div class="gal gal-4">
+            <div class="shot ratio-916"><video class="pv" controls preload="none" playsinline poster="assets/img/portrait-shuangpai-ep1.jpg" data-src="assets/video/shuangpai-ep1.mp4"></video><div class="cap">《双排》EP01 · 主栏目「帮兄弟把把关」</div></div>
+            <div class="shot ratio-916"><video class="pv" controls preload="none" playsinline poster="assets/img/portrait-ruiping-ep5.jpg" data-src="assets/video/ruiping-ep5.mp4"></video><div class="cap">《乱斗锐评》EP05 · 王者无限大乱斗法师专评</div></div>
+            <div class="shot ratio-916"><video class="pv" controls preload="none" playsinline poster="assets/img/portrait-chaguan-ep6.jpg" data-src="assets/video/chaguan-ep6.mp4"></video><div class="cap">《版本茶话会》EP06 · 单口锐评</div></div>
+            <div class="shot ratio-916"><video class="pv" controls preload="none" playsinline poster="assets/img/laoyue-koubo-cover.jpg" data-src="assets/video/koubo-ep1.mp4"></video><div class="cap">《口播》EP01 · 999 级卖 1 能量</div></div>
+          </div>
+          <div class="gal gal-2">
+            <div class="shot ratio-169"><video class="pv" controls preload="none" playsinline poster="assets/img/poster-juchang-ep1.jpg" data-src="assets/video/juchang-ep1.mp4"></video><div class="cap">《乱斗剧场》EP01《高三七班》· BGM 情绪短剧</div></div>
+            <div class="shot ratio-43"><img src="assets/img/laoyue-avatar.png" alt="乱斗月老博主形象" loading="lazy"><div class="cap">AI 博主形象：垫图 + 图生图保证面部一致性</div></div>
+          </div>
+          <div class="gal gal-2">
+            <div class="shot ratio-43"><img src="assets/img/lightai-workflow-list.png" alt="AI 工作流列表" loading="lazy"><div class="cap">自建工作流矩阵：版本茶馆 / MAX 抽卡 / 乱斗剧场 / 口播 / 版本锐评</div></div>
+            <div class="shot ratio-43"><img src="assets/img/laoyue-2.png" alt="口播栏目工作流" loading="lazy"><div class="cap">口播栏目工作流：真人演示 → Clip 拆分 → 提示词 → Seedance 同期声生成</div></div>
+          </div>
+          <div class="frame-demo">
+            <div class="bar"><i style="background:#e63946"></i><i style="background:#f5b301"></i><i style="background:#57cc99"></i><span>数据复盘一 · 账号完整工作复盘看板（可交互）</span></div>
+            <iframe data-src="assets/docs/laoyue-dashboard.html" title="乱斗月老复盘看板" loading="lazy"></iframe>
+          </div>
+          <div class="frame-demo">
+            <div class="bar"><i style="background:#e63946"></i><i style="background:#f5b301"></i><i style="background:#57cc99"></i><span>数据复盘二 · 账号周报 09-24 ~ 10-12（三平台 19 天真实后台数据，可交互）</span></div>
+            <iframe data-src="assets/docs/laoyue-weekly-0924-1012.html" title="乱斗月老账号周报 09-24至10-12" loading="lazy"></iframe>
+          </div>
+          <div class="docs-row">
+            <a class="doc-link" href="assets/docs/laoyue-weekly-0924-1012.html" target="_blank">账号周报全文 · 09-24 ~ 10-12 ↗</a>
+            <a class="doc-link" href="assets/docs/laoyue-data-report.html" target="_blank">数据分析报告 · 2026-10-13 ↗</a>
+            <a class="doc-link" href="assets/docs/腾讯-乱斗月老账号规划方案.docx" download>⤓ 账号规划方案</a>
+            <a class="doc-link" href="assets/docs/腾讯-乱斗月老账号完整工作复盘.docx" download>⤓ 账号完整工作复盘</a>
+            <a class="doc-link" href="assets/docs/腾讯-版本茶馆栏目制作手册.docx" download>⤓ 《版本茶馆》栏目制作手册</a>
+            <a class="doc-link" href="assets/docs/腾讯-锐评第2期-荒野乱斗版本射手.docx" download>⤓ 锐评第 2 期脚本与提示词</a>
+            <a class="doc-link" href="assets/docs/腾讯-多平台数据看板.docx" download>⤓ 多平台数据看板</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 网易 ============ -->
+    <div class="org rv">
+      <div class="org-head">
+        <img class="org-badge" src="assets/img/logo-netease.png" alt="网易云音乐" style="border-radius:50%">
+        <div class="org-txt">
+          <div class="org-name">网易（杭州）· 音乐事业部 · 原创音乐部</div>
+          <div class="org-role">AI MV 产品方向（实习）</div>
+        </div>
+        <span class="org-time">2026.05 – 2026.07</span>
+      </div>
+      <div class="org-body">
+        <div class="org-points">
+          <div class="org-pt"><span class="b">需求落地</span><span>深度使用音乐人服务平台（AI 视频生产后台），从创作者卡点整理 P0 级问题反馈清单逐项跟进闭环，提出「参考图锚点」「歌曲 BPM 分析」2 个功能点并推动进入迭代排期。</span></div>
+          <div class="org-pt"><span class="b">标准沉淀</span><span>建立「画风 × 曲风匹配规则」，沉淀视频制作规范；把 AI MV 制作拆为「情绪与 BPM 分析 → 视觉概念 → 分镜 → 生成 → 剪辑」五环节工具原型，将「写提示词」改为「填参数 + 选模板」。</span></div>
+        </div>
+        <div class="chips"><span class="chip">经手 99+ 项目看板、26 个已交付</span><span class="chip">支撑产出 50+ 条 AI MV</span><span class="chip">2 个功能点进入排期</span><span class="chip">三风格模板库可复用</span></div>
+
+        <div class="subproj">
+          <div class="subproj-head"><span class="subproj-idx">PROJECT 03</span><h4>AI MV 生产 · 平台使用、标准沉淀与需求落地</h4></div>
+          <p class="subproj-sub">在网易云音乐人服务平台（AI 视频生产后台）深度生产 AI MV，经手项目看板 99+ 个、交付 26 个；把生产经验沉淀成「画风 × 曲风匹配规则」与制作规范，并从使用卡点推动产品迭代。</p>
+          <div class="proj-metrics">
+            <div class="metric"><div class="mn">99+</div><div class="ml">经手项目（看板截图可验）</div></div>
+            <div class="metric"><div class="mn">50+ 条</div><div class="ml">AI MV 累计产出</div></div>
+            <div class="metric"><div class="mn">2 项</div><div class="ml">功能点进入迭代排期</div></div>
+            <div class="metric"><div class="mn">17 条</div><div class="ml">P0 反馈推动闭环</div></div>
+          </div>
+          <div class="gal gal-2">
+            <div class="shot ratio-43"><img src="assets/img/netease-board.png" alt="AI 视频生产后台项目看板" loading="lazy"><div class="cap">AI 视频生产后台 · 项目看板：AI 视频追加 / AI 分镜 / AI 分集，总项目 99、已交付 26</div></div>
+            <div class="shot ratio-43"><img src="assets/img/netease-review.png" alt="审核中心" loading="lazy"><div class="cap">审核中心 · 交付审核：图片片段与成片的验收流程</div></div>
+          </div>
+          <div class="gal gal-3">
+            <div class="shot ratio-916"><video class="pv" controls preload="none" playsinline poster="assets/img/poster-mv-datian.jpg" data-src="assets/video/mv-datian.mp4"></video><div class="cap">《大田后生仔》· AI MV 成片</div></div>
+            <div class="shot ratio-916"><video class="pv" controls preload="none" playsinline poster="assets/img/poster-mv-aiqing.jpg" data-src="assets/video/mv-aiqing.mp4"></video><div class="cap">《爱情废柴》· AI MV 成片</div></div>
+            <div class="shot ratio-916"><img src="assets/img/netease-stylelib.png" alt="画风曲风匹配规则" loading="lazy"><div class="cap">「画风 × 曲风匹配规则」：风格提示词库与推荐参考（节选）</div></div>
+          </div>
+          <div class="gal gal-2">
+            <div class="shot ratio-169"><img src="assets/img/netease-feedback-p0.png" alt="P0 问题反馈清单" loading="lazy"><div class="cap">P0 级问题反馈清单（节选 · 已脱敏）：优先级 / 问题分类 / 状态，多项已完成闭环</div></div>
+            <div class="frame-demo" style="margin-top:0">
+              <div class="bar"><i style="background:#e63946"></i><i style="background:#f5b301"></i><i style="background:#57cc99"></i><span>AI MV Studio · 生成系统原型（可交互）</span></div>
+              <iframe data-src="assets/docs/aimv-prototype.html" title="AI MV Studio 原型" loading="lazy" style="height:380px"></iframe>
+            </div>
+          </div>
+          <div class="docs-row">
+            <a class="doc-link" href="assets/docs/网易-AIMV制作PRD文档.docx" download>⤓ AI MV 制作 PRD 文档</a>
+            <a class="doc-link" href="assets/img/netease-feedback-p0-2.png" target="_blank">P0 反馈清单 · 续页 ↗</a>
+            <a class="doc-link" href="assets/img/netease-feedback-p0-3.png" target="_blank">P0 反馈清单 · 续页 2 ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 幻希赛隆 ============ -->
+    <div class="org rv">
+      <div class="org-head">
+        <div class="org-badge" style="background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:700;font-size:19px">幻</div>
+        <div class="org-txt">
+          <div class="org-name">深圳幻希赛隆科技<small>AI 短剧</small></div>
+          <div class="org-role">AIGC 导演 · AI 短剧发行与营销</div>
+        </div>
+        <span class="org-time">2026.02 – 2026.05</span>
+      </div>
+      <div class="org-body">
+        <div class="org-points">
+          <div class="org-pt"><span class="b">独立全流程</span><span>独立负责《神召纪元》《大圣归来》2 部 AI 短剧全流程：剧本改编 → ComfyUI 批量生图 → 分镜提示词 → 视频生成 → 剪映成片，沉淀剧本到成片 SOP。</span></div>
+          <div class="org-pt"><span class="b">宣发验证</span><span>制定 6 平台全周期宣发方案，按后台数据复盘动态迭代投放策略。</span></div>
+        </div>
+        <div class="chips"><span class="chip">可用素材率 +30%</span><span class="chip">单集生产周期 −30%</span><span class="chip">7 天涨粉 8,000</span><span class="chip">单条最高播放 2 万</span></div>
+
+        <div class="subproj">
+          <div class="subproj-head"><span class="subproj-idx">PROJECT 04</span><h4>AI 短剧《神召纪元》《大圣归来》· 独立全流程</h4></div>
+          <p class="subproj-sub">独立负责 2 部 AI 短剧从剧本到成片的全流程：剧本改编 → ComfyUI 工作流批量生图 → 分镜提示词 → 视频生成 → 剪辑成片 → 6 平台宣发。</p>
+          <div class="proj-metrics">
+            <div class="metric"><div class="mn">2 部</div><div class="ml">AI 短剧独立交付</div></div>
+            <div class="metric"><div class="mn">+30%</div><div class="ml">可用素材率提升</div></div>
+            <div class="metric"><div class="mn">−30%</div><div class="ml">单集生产周期缩短</div></div>
+            <div class="metric"><div class="mn">8,000</div><div class="ml">7 天涨粉</div></div>
+          </div>
+          <div class="gal gal-2">
+            <div class="shot ratio-916"><video class="pv" controls preload="none" playsinline poster="assets/img/poster-huanxi-shenzhao.jpg" data-src="assets/video/huanxi-shenzhao.mp4"></video><div class="cap">《神召纪元》第 1 集 · 成片片段</div></div>
+            <div class="shot ratio-916"><video class="pv" controls preload="none" playsinline poster="assets/img/poster-huanxi-dasheng.jpg" data-src="assets/video/huanxi-dasheng.mp4"></video><div class="cap">《大圣归来》第 1 集 · 成片片段</div></div>
+          </div>
+          <div class="gal gal-2">
+            <div class="shot ratio-43"><img src="assets/img/huanxi-comfyui.jpg" alt="ComfyUI 批量生图工作流" loading="lazy"><div class="cap">ComfyUI 工作流：提示词矩阵 → 批量生图 → 任务队列（自建节点网络）</div></div>
+            <div class="shot ratio-43"><img src="assets/img/huanxi-jianying.jpg" alt="剪映成片剪辑" loading="lazy"><div class="cap">剪映专业版成片剪辑：《神召纪元》时间线与素材库</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 腾展科技 ============ -->
+    <div class="org rv">
+      <div class="org-head">
+        <img class="org-badge" src="assets/img/app-banyuewan.png" alt="半月湾 App">
+        <div class="org-txt">
+          <div class="org-name">杭州腾展科技<small>半月湾 · AI 虚拟伴侣 App</small></div>
+          <div class="org-role">AI 产品实习生 · 乙女向数字人陪伴产品</div>
+        </div>
+        <span class="org-time">2025.05 – 2025.07</span>
+      </div>
+      <div class="org-body">
+        <div class="org-points">
+          <div class="org-pt"><span class="b">留存指标</span><span>推动核心指标从「播放量」转向「哄睡完成率 / 单次陪伴时长 / 次日回访率」——把衡量标准从内容曝光切换到关系留存。</span></div>
+          <div class="org-pt"><span class="b">场景建模</span><span>拆解用户睡前 5 类情绪状态与陪伴需求，建立场景—内容匹配模型，为 3 类音频素材定义 8 项结构化属性字段。</span></div>
+          <div class="org-pt"><span class="b">互动机制</span><span>锁定入睡前 5 分钟亲密感峰值窗口设计 10 套互动话术（A/B 对照）；搭建 4 类题材互动剧情配置规范（7 项字段），独立完成 3 条多分支剧情线。</span></div>
+          <div class="org-pt"><span class="b">竞品调研</span><span>拆解星野 / 猫箱 / Talkie / 筑梦岛 4 款同类产品的互动分支密度与付费点设计。</span></div>
+        </div>
+        <div class="chips"><span class="chip">8 项字段规范</span><span class="chip">10 套话术 A/B</span><span class="chip">3 条互动剧情线</span><span class="chip">4 款竞品拆解</span><span class="chip">7 大核心陪伴场景</span></div>
+
+        <div class="subproj">
+          <div class="subproj-head"><span class="subproj-idx">PROJECT 05</span><h4>半月湾 · 数字人陪伴产品体验设计 <a href="https://www.banyuewan.cn/" target="_blank" style="font-size:12px;color:var(--blue);font-weight:400;font-family:var(--sans)">官网 banyuewan.cn ↗</a></h4></div>
+          <p class="subproj-sub">半月湾是一款主打「真实感」数字人情感陪伴的 AI 伴侣 App：视频通话 / 情绪陪伴 / 剧情体验 / 健身搭子 / 哄睡等 7 大核心场景，信任值触发剧情节点的渐进式关系成长系统。以下为产品官方页面（App 图标与官网截图）。</p>
+          <div class="proj-metrics">
+            <div class="metric"><div class="mn">7 类</div><div class="ml">核心陪伴场景</div></div>
+            <div class="metric"><div class="mn">4 维</div><div class="ml">角色定制（年龄/性格/声线/形象）</div></div>
+            <div class="metric"><div class="mn">信任值</div><div class="ml">渐进式关系成长系统</div></div>
+            <div class="metric"><div class="mn">3 类</div><div class="ml">交互模态（文字/语音/视频）</div></div>
+          </div>
+          <div class="gal gal-2">
+            <div class="shot ratio-169"><img src="assets/img/banyuewan-site-1.png" alt="半月湾官网首页" loading="lazy"><div class="cap">半月湾官网首页（banyuewan.cn）· AI 虚拟伴侣 APP</div></div>
+            <div class="shot ratio-169"><img src="assets/img/banyuewan-site-2600.png" alt="半月湾官网产品区块" loading="lazy"><div class="cap">官网产品区块：拥有你的专属 AI 伴侣（视频通话 / 情绪陪伴）</div></div>
+          </div>
+          <div class="gal gal-2">
+            <div class="shot ratio-169"><img src="assets/img/banyuewan-site-3800.png" alt="半月湾官网场景区块" loading="lazy"><div class="cap">官网场景区块：剧情体验 / 甜蜜哄睡等产品能力</div></div>
+            <div class="shot" style="aspect-ratio:1/1;max-width:250px;margin:0 auto"><img src="assets/img/app-banyuewan.png" alt="半月湾 App 图标" loading="lazy" style="object-fit:contain"><div class="cap">半月湾 App 图标（App Store 官方图）</div></div>
+          </div>
+          <div class="org-points" style="border:none;padding:18px 0 0;margin:6px 0 0">
+            <div class="org-pt"><span class="b">我的工作</span><span>负责 ASMR 哄睡与 Roleplay 两大核心场景的产品设计：从用户场景建模（5 类睡前情绪状态 × 8 项素材属性字段）、互动机制（10 套话术 A/B、4 类题材剧情配置规范、3 条多分支剧情线）到留存指标定义（哄睡完成率 / 单次陪伴时长 / 次日回访率替代播放量）。</span></div>
+            <div class="org-pt"><span class="b">竞品对象</span><span>星野 / 猫箱 / Talkie / 筑梦岛：分支密度、付费点设计、沉浸感与留存的竞争策略。</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 03 文档墙 ================= -->
+<section id="docs">
+  <span class="vertical-tag">文 档 墙</span>
+  <div class="wrap">
+    <div class="sec-head rv"><span class="sec-num">03</span><span class="sec-title">文档墙 · 我写过的东西</span></div>
+    <p class="sec-desc rv">简历上每一句话背后对应的原始文档，点击即可下载核验。</p>
+    <div class="docs-grid rv">
+      <a class="doc-card" href="assets/docs/腾讯-MAX短剧-提示词方法论v1.docx" download><span class="dt">腾讯 · 方法论</span><span class="dn">MAX 横屏漫剧 Seedance 2.0 提示词方法论 v1.0</span><span class="dd">下载 DOCX ↓</span></a>
+      <a class="doc-card" href="assets/docs/腾讯-MAX短剧-AI漫剧制作工作流.docx" download><span class="dt">腾讯 · 工作流</span><span class="dn">AI 漫剧制作工作流</span><span class="dd">下载 DOCX ↓</span></a>
+      <a class="doc-card" href="assets/img/report-shot-2.png" target="_blank"><span class="dt">腾讯 · 选型</span><span class="dn">MAX 短剧 AI 模型评测与选型（报告截图：三层选型方案）</span><span class="dd">查看截图 ↗</span></a>
+      <a class="doc-card" href="assets/img/report-shot-3.png" target="_blank"><span class="dt">腾讯 · 选型</span><span class="dn">MAX 短剧 AI 模型评测与选型（报告截图：产线七环节卡点）</span><span class="dd">查看截图 ↗</span></a>
+      <a class="doc-card" href="assets/docs/腾讯-MAX短剧-分镜人设提示词.docx" download><span class="dt">腾讯 · 提示词</span><span class="dn">分镜人设提示词</span><span class="dd">下载 DOCX ↓</span></a>
+      <a class="doc-card" href="assets/docs/腾讯-MAX短剧-分镜头剧本.docx" download><span class="dt">腾讯 · 剧本</span><span class="dn">分镜头剧本</span><span class="dd">下载 DOCX ↓</span></a>
+      <a class="doc-card" href="assets/docs/腾讯-多平台数据看板.docx" download><span class="dt">腾讯 · 数据产品</span><span class="dn">多平台数据看板（跨平台口径与异常标记）</span><span class="dd">下载 DOCX ↓</span></a>
+      <a class="doc-card" href="assets/docs/腾讯-乱斗月老账号规划方案.docx" download><span class="dt">腾讯 · 账号规划</span><span class="dn">乱斗月老账号规划方案</span><span class="dd">下载 DOCX ↓</span></a>
+      <a class="doc-card" href="assets/docs/腾讯-乱斗月老账号完整工作复盘.docx" download><span class="dt">腾讯 · 复盘</span><span class="dn">乱斗月老账号完整工作复盘</span><span class="dd">下载 DOCX ↓</span></a>
+      <a class="doc-card" href="assets/docs/laoyue-weekly-0924-1012.html" target="_blank"><span class="dt">腾讯 · 数据复盘</span><span class="dn">账号周报 09-24 ~ 10-12（三平台 19 天后台数据）</span><span class="dd">新窗口打开 ↗</span></a>
+      <a class="doc-card" href="assets/docs/laoyue-data-report.html" target="_blank"><span class="dt">腾讯 · 数据分析</span><span class="dn">乱斗月老数据分析报告 · 2026-10-13</span><span class="dd">新窗口打开 ↗</span></a>
+      <a class="doc-card" href="assets/docs/腾讯-版本茶馆栏目制作手册.docx" download><span class="dt">腾讯 · 栏目 SOP</span><span class="dn">《版本茶馆》栏目脚本与提示词制作手册</span><span class="dd">下载 DOCX ↓</span></a>
+      <a class="doc-card" href="assets/docs/腾讯-锐评第2期-荒野乱斗版本射手.docx" download><span class="dt">腾讯 · 脚本</span><span class="dn">锐评第 2 期：荒野乱斗版本射手（脚本与提示词）</span><span class="dd">下载 DOCX ↓</span></a>
+      <a class="doc-card" href="assets/docs/腾讯-锐评第1期-王者万象棋.docx" download><span class="dt">腾讯 · 脚本</span><span class="dn">锐评第 1 期：王者万象棋（脚本与提示词）</span><span class="dd">下载 DOCX ↓</span></a>
+      <a class="doc-card" href="assets/docs/网易-AIMV制作PRD文档.docx" download><span class="dt n">网易 · PRD</span><span class="dn">AI MV 制作 PRD 文档</span><span class="dd">下载 DOCX ↓</span></a>
+      <a class="doc-card" href="assets/docs/aimv-prototype.html" target="_blank"><span class="dt n">网易 · 原型</span><span class="dn">AI MV Studio 生成系统原型（可交互）</span><span class="dd">新窗口打开 ↗</span></a>
+      <a class="doc-card" href="assets/img/netease-feedback-p0.png" target="_blank"><span class="dt n">网易 · 需求闭环</span><span class="dn">P0 问题反馈清单（三页 · 已脱敏）</span><span class="dd">新窗口打开 ↗</span></a>
+      <a class="doc-card" href="assets/docs/laoyue-dashboard.html" target="_blank"><span class="dt">腾讯 · 看板</span><span class="dn">乱斗月老账号完整工作复盘看板（可交互）</span><span class="dd">新窗口打开 ↗</span></a>
+      <a class="doc-card" href="https://www.banyuewan.cn/" target="_blank"><span class="dt h">腾展 · 产品</span><span class="dn">半月湾 AI 虚拟伴侣 App 官网</span><span class="dd">banyuewan.cn ↗</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 04 技能 ================= -->
+<section id="skills">
+  <span class="vertical-tag">技 能</span>
+  <div class="wrap">
+    <div class="sec-head rv"><span class="sec-num">04</span><span class="sec-title">技能</span></div>
+    <div class="skill-row rv">
+      <div class="skill-card"><h4>产品能力</h4><p>需求分析 / 竞品调研 / PRD 撰写 / 工作流 SOP 设计 / 模型选型与评测 / 指标体系设计</p></div>
+      <div class="skill-card"><h4>数据分析</h4><p>SQL / SPSS / Excel；内容数据追踪、用户增长分析、跨平台数据看板搭建</p></div>
+      <div class="skill-card"><h4>AIGC 工具链</h4><p>Midjourney / Runway / 可灵 / 即梦 / ComfyUI / Seedance 2.0 / Kling O3 / H3 Max</p></div>
+      <div class="skill-card"><h4>工程与工作流</h4><p>可视化 AI 工作流搭建、多 Clip 架构、角色与场景一致性控制；Node.js（自建直播播放器原型）/ Python / vibecoding</p></div>
+      <div class="skill-card"><h4>内容专业</h4><p>剧本 / 分镜 / 镜头语言 / 剪辑（影视科班），提示词工程与镜头级质量判据设计</p></div>
+      <div class="skill-card"><h4>语言</h4><p>CET-6</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 联系 ================= -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <h2 class="rv">让 AI 内容生产，变成可复制的产品能力。</h2>
+    <p class="rv">AIGC / AI 内容产品方向 · 实习可到岗</p>
+    <div class="contact-links rv">
+      <a class="btn btn-dark" href="mailto:1329262819@qq.com">1329262819@qq.com</a>
+      <a class="btn btn-line" href="javascript:void(0)">15268555176</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 张浩楠 · 本页所有数据、成片与文档均来自真实项目，可提供原件核验</div>
+</footer>
+
+<script>
+  // 滚动渐入
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } }), { threshold: .1 });
+  document.querySelectorAll('.rv, .org, .subproj, .doc-card, .shot, .tl-item').forEach(el => { el.classList.add('rv'); io.observe(el); });
+  // iframe 懒加载
+  const fio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { const f = e.target; if (f.dataset.src) f.src = f.dataset.src; fio.unobserve(f); } }), { rootMargin: '400px' });
+  document.querySelectorAll('iframe[data-src]').forEach(f => fio.observe(f));
+
+  // ===== 视频加载：以 Blob 方式取流，绕开预览环境的扩展名限制 =====
+  async function ensureVideo(v){
+    if (v.dataset.ready) return true;
+    const base = v.dataset.src || '';
+    if (!base) return false;
+    for (const url of [base, base + '.json']) {
+      try {
+        const r = await fetch(url);
+        if (!r.ok) continue;
+        const buf = await r.arrayBuffer();
+        if (buf.byteLength < 2048) continue;
+        v.src = URL.createObjectURL(new Blob([buf], { type: 'video/mp4' }));
+        v.dataset.ready = '1';
+        return true;
+      } catch (e) {}
+    }
+    return false;
+  }
+  document.querySelectorAll('video.pv').forEach(v => {
+    const shot = v.closest('.shot');
+    if (!shot) return;
+    const btn = document.createElement('div');
+    btn.className = 'vplay';
+    btn.innerHTML = '<span class="ico">&#9654;</span>';
+    shot.appendChild(btn);
+    btn.addEventListener('click', async () => {
+      if (v.dataset.ready) { btn.remove(); v.play().catch(()=>{}); return; }
+      btn.classList.add('busy');
+      btn.querySelector('.ico').textContent = '载入中';
+      const ok = await ensureVideo(v);
+      btn.classList.remove('busy');
+      if (!ok) { btn.classList.add('dead'); btn.querySelector('.ico').textContent = '无法播放'; return; }
+      btn.remove();
+      v.play().catch(()=>{});
+    });
+  });
+
+  // ===== 本人照片上传（localStorage 持久化） =====
+  const KEY = 'zhn-photo';
+  const frame = document.getElementById('avatarFrame');
+  const empty = document.getElementById('avatarEmpty');
+  const input = document.getElementById('avatarInput');
+  const reset = document.getElementById('avatarReset');
+  function renderPhoto(dataUrl){
+    if (dataUrl) {
+      let img = document.getElementById('avatarImg');
+      if (!img) { img = document.createElement('img'); img.id = 'avatarImg'; frame.insertBefore(img, frame.firstChild); }
+      img.src = dataUrl; empty.style.display = 'none'; reset.style.display = 'inline';
+    } else {
+      const img = document.getElementById('avatarImg'); if (img) img.remove();
+      empty.style.display = ''; reset.style.display = 'none';
+    }
+  }
+  renderPhoto(localStorage.getItem(KEY));
+  frame.addEventListener('click', () => input.click());
+  document.getElementById('avatarBtn').addEventListener('click', () => input.click());
+  input.addEventListener('change', () => {
+    const file = input.files && input.files[0]; if (!file) return;
+    const r = new FileReader();
+    r.onload = () => { try { localStorage.setItem(KEY, r.result); } catch(e) {} renderPhoto(r.result); };
+    r.readAsDataURL(file);
+  });
+  reset.addEventListener('click', (e) => { e.stopPropagation(); localStorage.removeItem(KEY); renderPhoto(null); });
+</script>
+</body>
+</html>
